@@ -8,6 +8,7 @@ docker run \
     -v /media/corallab-s1/2tbhdd/Xuyang/rich-maps/RichMaps:/RichMaps/  \
     -it \
     -w /RichMaps \
+    -v /media/corallab-s1/2tbhdd/Xuyang/rich-maps/habitat-lab:/habitat-lab/  \
     --network=host --ipc=host  \
     --device=/dev/dri:/dev/dri \
     -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \

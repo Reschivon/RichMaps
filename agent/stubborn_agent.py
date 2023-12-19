@@ -83,6 +83,9 @@ class StubbornAgent(habitat.Agent):
                 self.agent_states.clear_goal(
                     planner_inputs['goal'])
                 return {'action': 1}
+                        
+        print(action)
+        
         return action
 
     def get_info(self, obs):

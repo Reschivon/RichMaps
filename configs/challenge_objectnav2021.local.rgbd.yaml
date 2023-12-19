@@ -6,6 +6,11 @@ defaults:
   - /habitat/simulator/agents@habitat.simulator.agents.main_agent: rgbd_agent
   - /habitat/dataset/objectnav: hm3d_v2
   - _self_
+  - /habitat/task/actions:
+    - move_forward
+    - turn_left
+    - turn_right
+    - stop
 
 habitat:
   environment:
@@ -37,3 +42,11 @@ habitat:
     habitat_sim_v0:
       gpu_device_id: 0
       allow_sliding: False
+      
+  dataset:
+    type: ObjectNav-v1
+    split: val_mini
+    scenes_dir: data/scene_datasets
+    content_scenes:
+    - '*'
+    data_path: data/datasets/objectnav/hm3d/v2/{split}/{split}.json.gz
