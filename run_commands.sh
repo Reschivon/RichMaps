@@ -11,8 +11,10 @@ docker build . -f configs/ObjectNav_ddppo_baseline.Dockerfile -t objectnav_submi
 # What gets run in the container
 export PYTHONPATH=/evalai-remote-evaluation:$PYTHONPATH 
 
-export CHALLENGE_CONFIG_FILE="/RichMaps/configs/challenge_objectnav2021.local.rgbd.yaml" 
+export CHALLENGE_CONFIG_FILE="./configs/challenge_objectnav2021.local.rgbd.yaml" 
+
+export CUDA_VISIBLE_DEVICES=1 
 
 python /RichMaps/eval.py \
     --evaluation local \
-    --checkpt /RichMaps/rednet_semmap_mp3d_tuned.pth \
+    --checkpt ./rednet_semmap_mp3d_tuned.pth \

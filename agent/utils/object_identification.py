@@ -11,7 +11,7 @@ import numpy as np
 
 
 NB = True
-with open('/RichMaps/obj_id_data.pickle', 'rb') as handle:
+with open('obj_id_data.pickle', 'rb') as handle:
     b = pickle.load(handle)
 
 stepsize = 200

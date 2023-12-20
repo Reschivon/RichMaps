@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 
 docker run \
+    --name rich-maps-ctn \
     -v $(pwd)/habitat-challenge-data:/habitat-challenge-data \
     --runtime=nvidia \
     -e "AGENT_EVALUATION_TYPE=local" \
     -e "TRACK_CONFIG_FILE=/configs/challenge_objectnav2021.local.rgbd.yaml" \
-    -v /media/corallab-s1/2tbhdd/Xuyang/rich-maps/RichMaps:/RichMaps/  \
+    -v .:/RichMaps/  \
     -it \
     -w /RichMaps \
-    -v /media/corallab-s1/2tbhdd/Xuyang/rich-maps/habitat-lab:/habitat-lab/  \
+    -v habitat-lab:/habitat-lab/  \
     --network=host --ipc=host  \
     --device=/dev/dri:/dev/dri \
     -v /tmp/.X11-unix:/tmp/.X11-unix -e DISPLAY=$DISPLAY \

@@ -1,16 +1,31 @@
-FROM fairembodied/habitat-challenge:habitat_navigation_2023_base_docker
+FROM nvidia/opengl:1.0-glvnd-devel-ubuntu20.04
 
-# ADD agent/habitat_baselines_agent.py agent.py
-# # ADD agents/config.py config.py
-# ADD configs/ /configs/
-# ADD scripts/submission.sh /submission.sh
-# ADD objectnav_baseline_habitat_navigation_challenge_2023.pth demo.ckpt.pth
+# Conda install
+ENV PATH="/root/miniconda3/bin:${PATH}"
+ARG PATH="/root/miniconda3/bin:${PATH}"
+RUN apt-get update
+
+RUN apt-get install -y wget && rm -rf /var/lib/apt/lists/*
+
+RUN wget \
+    https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+    && mkdir /root/.conda \
+    && bash Miniconda3-latest-Linux-x86_64.sh -b \
+    && rm -f Miniconda3-latest-Linux-x86_64.sh 
+RUN conda --version
+
 
 ########### Stubborn Deps ###########
+RUN /bin/bash -c "conda init"
+
+RUN /bin/bash -c "conda create -n habitat -y"
+
 RUN /bin/bash -c ". activate habitat"
 
+RUN /bin/bash -c ". activate habitat; conda install python=3.8"
+
 # Install project specific packages
-RUN /bin/bash -c "apt-get update; apt-get install -y libsm6 libxext6 libxrender-dev; . activate habitat; pip install opencv-python"
+RUN /bin/bash -c "apt-get update; apt-get install -y libsm6 libxext6 libxrender-dev; pip install opencv-python"
 RUN /bin/bash -c ". activate habitat; pip install --upgrade cython numpy"
 
 # Need downgrade setuptools due to scikit not updating build to new format
@@ -29,11 +44,7 @@ RUN /bin/bash -c ". activate habitat; pip install torch==1.12.1+cu113 torchvisio
 
 ########### Stubborn Deps ###########
 
-ENV PYTHONPATH "/evalai-remote-evaluation:$PYTHONPATH "
-
-ENV CHALLENGE_CONFIG_FILE "./configs/challenge_objectnav2021.local.rgbd.yaml" 
-
-ENV TRACK_CONFIG_FILE "track_config_file_is_unknown"
+ENV CHALLENGE_CONFIG_FILE "/RichMaps/configs/challenge_objectnav2021.local.rgbd.yaml" 
 
 ENV TRACK_CONFIG_FILE "track_config_file_is_unknown"
 

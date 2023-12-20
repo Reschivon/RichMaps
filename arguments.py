@@ -17,7 +17,7 @@ def get_args():
 
     parser.add_argument('-d', '--dump_location', type=str, default="./tmp/",
                         help='path to dump models and log (default: ./tmp/)')
-    parser.add_argument('--checkpt', type=str, default="./Stubborn/rednet_semmap_mp3d_tuned.pth",
+    parser.add_argument('--checkpt', type=str, default="./rednet_semmap_mp3d_tuned.pth",
                         help='path to rednet models')
 
     parser.add_argument('-v', '--visualize', type=int, default=0,
@@ -73,7 +73,7 @@ def get_args():
     parser.add_argument('--exp_pred_threshold', type=float, default=1.0)
     parser.add_argument('--collision_threshold', type=float, default=0.20)
     parser.add_argument(
-        "--evaluation", type=str, required=False, choices=["local", "remote"]
+        "--evaluation", type=str, required=False, default="local", choices=["local", "remote"]
     )
     parser.add_argument('--exp_name', type=str, default="exp1",
                         help='experiment name (default: exp1)')
